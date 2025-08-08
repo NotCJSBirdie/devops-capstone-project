@@ -22,9 +22,11 @@ BASE_URL = "/accounts"
 
 HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 
+
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -46,7 +48,6 @@ class TestAccountService(TestCase):
         """Runs before each test"""
         db.session.query(Account).delete()  # clean up the last tests
         db.session.commit()
-
         self.client = app.test_client()
 
     def tearDown(self):
@@ -134,7 +135,7 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(len(data), 5)
-    
+
     def test_update_account(self):
         """It should Update an existing Account"""
         # create an Account to update
@@ -148,7 +149,7 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         updated_account = resp.get_json()
         self.assertEqual(updated_account["name"], "Something Known")
-    
+
     def test_delete_account(self):
         """It should Delete an Account"""
         account = self._create_accounts(1)[0]
